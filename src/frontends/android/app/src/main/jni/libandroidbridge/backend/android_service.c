@@ -729,6 +729,7 @@ static bool add_auth_cfg_cert(private_android_service_t *this,
 		id = id->clone(id);
 	}
 	auth->add(auth, AUTH_RULE_IDENTITY, id);
+	auth->add(auth, AUTH_RULE_AUTH_CLASS, AUTH_CLASS_PUBKEY);
 	peer_cfg->add_auth_cfg(peer_cfg, auth, TRUE);
 	return TRUE;
 }
@@ -856,7 +857,6 @@ static job_requeue_t initiate(private_android_service_t *this)
 		auth->add(auth, AUTH_RULE_IDENTITY_LOOSE, TRUE);
 	}
 	auth->add(auth, AUTH_RULE_IDENTITY, gateway);
-	auth->add(auth, AUTH_RULE_AUTH_CLASS, AUTH_CLASS_PUBKEY);
 	if (this->settings->get_bool(this->settings, "connection.strict_revocation", FALSE))
 	{
 		auth->add(auth, AUTH_RULE_CRL_VALIDATION, VALIDATION_GOOD);
