@@ -688,6 +688,38 @@ static void add_auth_cfg_pw(private_android_service_t *this,
 	peer_cfg->add_auth_cfg(peer_cfg, auth, TRUE);
 }
 
+static void add_auth_cfg_psk(private_android_service_t *this,
+                            peer_cfg_t *peer_cfg)
+{
+    identification_t *id = NULL;
+    auth_cfg_t *auth;
+    char *secret, *local_id;
+
+    auth = auth_cfg_create();
+    auth->add(auth, AUTH_RULE_AUTH_CLASS, AUTH_CLASS_PSK);
+    /* in case EAP-PEAP or EAP-TTLS is used we currently accept any identity */
+
+    secret = this->settings->get_str(this->settings, "connection.secret",
+                                       NULL);
+    local_id = this->settings->get_str(this->settings, "connection.local_id",
+                                       NULL);
+    /*user = identification_create_from_string(username);
+    auth->add(auth, AUTH_RULE_EAP_IDENTITY, user);*/
+    if (local_id)
+    {
+        id = identification_create_from_string(local_id);
+    }
+    if (!id)
+    {
+        id = identification_create_from_string("");
+    }
+    auth->add(auth, AUTH_RULE_IDENTITY, id);
+
+
+    this->creds->add_psk(this->creds, secret);
+    peer_cfg->add_auth_cfg(peer_cfg, auth, TRUE);
+}
+
 static bool add_auth_cfg_cert(private_android_service_t *this,
 							  peer_cfg_t *peer_cfg)
 {
@@ -839,6 +871,10 @@ static job_requeue_t initiate(private_android_service_t *this)
 		streq("ikev2-byod-eap", type))
 	{
 		add_auth_cfg_pw(this, peer_cfg, strpfx(type, "ikev2-byod"));
+	}
+	if (streq("ikev2-psk", type))
+	{
+		add_auth_cfg_psk(this, peer_cfg);
 	}
 
 	/* remote auth config */

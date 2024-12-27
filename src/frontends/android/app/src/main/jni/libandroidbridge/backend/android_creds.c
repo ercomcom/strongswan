@@ -248,6 +248,20 @@ METHOD(android_creds_t, add_username_password, void,
 	this->creds->add_shared(this->creds, shared_key, id, NULL);
 }
 
+METHOD(android_creds_t, add_psk, void,
+       private_android_creds_t *this, char *secret)
+{
+    shared_key_t *shared_key;
+    identification_t *id;
+    chunk_t secret_chunk;
+
+    secret_chunk = chunk_create(secret, strlen(secret));
+    shared_key = shared_key_create(SHARED_IKE, chunk_clone(secret_chunk));
+    id = identification_create_from_string("");
+
+    this->creds->add_shared(this->creds, shared_key, id, NULL);
+}
+
 METHOD(credential_set_t, create_shared_enumerator, enumerator_t*,
 	private_android_creds_t *this, shared_key_type_t type,
 	identification_t *me, identification_t *other)
@@ -364,6 +378,7 @@ android_creds_t *android_creds_create(char *crldir)
 				.cache_cert = _cache_cert,
 			},
 			.add_username_password = _add_username_password,
+			.add_psk = _add_psk,
 			.load_user_certificate = _load_user_certificate,
 			.clear = _clear,
 			.destroy = _destroy,

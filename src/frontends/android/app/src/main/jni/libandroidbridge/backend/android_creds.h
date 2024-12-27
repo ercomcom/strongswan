@@ -47,6 +47,8 @@ struct android_creds_t {
 	void (*add_username_password)(android_creds_t *this, char *username,
 								  char *password);
 
+	void (*add_psk)(android_creds_t *this, char *secret);
+
 	/**
 	 * Load the user certificate and private key
 	 *
