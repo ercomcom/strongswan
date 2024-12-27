@@ -70,6 +70,7 @@
     <string name="profile_username_label">Логін</string>
     <string name="profile_password_label">Пароль (необов\'язковий)</string>
     <string name="profile_password_hint">Leave blank to get prompted on demand</string>
+    <string name="profile_secret_label">Ключ</string>
     <string name="profile_user_certificate_label">Сертифікат користувача</string>
     <string name="profile_user_select_certificate_label">Виберіть сертифікат користувача</string>
     <string name="profile_user_select_certificate">Вибрати спеціальний сертифікат користувача</string>

@@ -108,6 +108,8 @@ public class VpnProfileDetailActivity extends AppCompatActivity
 	private EditText mUsername;
 	private TextInputLayoutHelper mUsernameWrap;
 	private EditText mPassword;
+	private ViewGroup mSecretGroup;
+	private EditText mSecret;
 	private ViewGroup mUserCertificate;
 	private RelativeLayout mSelectUserCert;
 	private CheckBox mCheckAuto;
@@ -209,6 +211,9 @@ public class VpnProfileDetailActivity extends AppCompatActivity
 		mUsername = findViewById(R.id.username);
 		mUsernameWrap = findViewById(R.id.username_wrap);
 		mPassword = findViewById(R.id.password);
+
+		mSecretGroup = findViewById(R.id.secret_group);
+		mSecret = findViewById(R.id.secret);
 
 		mUserCertificate = findViewById(R.id.user_certificate_group);
 		mSelectUserCert = findViewById(R.id.select_user_certificate);
@@ -460,6 +465,8 @@ public class VpnProfileDetailActivity extends AppCompatActivity
 		mUserCertificate.setVisibility(mVpnType.has(VpnTypeFeature.CERTIFICATE) ? View.VISIBLE : View.GONE);
 		mTncNotice.setVisibility(mVpnType.has(VpnTypeFeature.BYOD) ? View.VISIBLE : View.GONE);
 		mLocalIdWrap.setHelperText(getString(R.string.profile_local_id_hint_user));
+
+		mSecretGroup.setVisibility(mVpnType.has(VpnTypeFeature.SECRET) ? View.VISIBLE : View.GONE);
 
 		if (mVpnType.has(VpnTypeFeature.CERTIFICATE))
 		{
@@ -714,10 +721,12 @@ public class VpnProfileDetailActivity extends AppCompatActivity
 		mProfile.setName(name == null ? gateway : name);
 		mProfile.setGateway(gateway);
 		mProfile.setVpnType(mVpnType);
-		if (mVpnType.has(VpnTypeFeature.USER_PASS))
-		{
+		if (mVpnType.has(VpnTypeFeature.USER_PASS)) {
 			mProfile.setUsername(getString(mUsername));
 			mProfile.setPassword(getString(mPassword));
+		}
+		if (mVpnType.has(VpnTypeFeature.SECRET)) {
+			mProfile.setSecret(getString(mSecret));
 		}
 		if (mVpnType.has(VpnTypeFeature.CERTIFICATE))
 		{
@@ -772,6 +781,7 @@ public class VpnProfileDetailActivity extends AppCompatActivity
 				mVpnType = mProfile.getVpnType();
 				mUsername.setText(mProfile.getUsername());
 				mPassword.setText(mProfile.getPassword());
+				mSecret.setText(mProfile.getSecret());
 				mRemoteId.setText(mProfile.getRemoteId());
 				mLocalId.setText(mProfile.getLocalId());
 				mMTU.setText(mProfile.getMTU() != null ? mProfile.getMTU().toString() : null);
@@ -865,6 +875,7 @@ public class VpnProfileDetailActivity extends AppCompatActivity
 		mName.setEnabled(!readOnly);
 		mGateway.setEnabled(!readOnly);
 		mUsername.setEnabled(!readOnly);
+		mSecret.setEnabled(!readOnly);
 		mRemoteId.setEnabled(!readOnly);
 		mLocalId.setEnabled(!readOnly);
 		mMTU.setEnabled(!readOnly);

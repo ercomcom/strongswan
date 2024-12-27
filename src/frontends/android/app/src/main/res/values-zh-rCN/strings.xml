@@ -69,6 +69,7 @@
     <string name="profile_username_label">用户名</string>
     <string name="profile_password_label">密码 (可选)</string>
     <string name="profile_password_hint">留空则在要求时弹出</string>
+    <string name="profile_secret_label">密钥</string>
     <string name="profile_user_certificate_label">用户证书</string>
     <string name="profile_user_select_certificate_label">选择用户证书</string>
     <string name="profile_user_select_certificate">选择指定的用户证书</string>

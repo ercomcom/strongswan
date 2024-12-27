@@ -51,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		new DbColumn(VpnProfileDataSource.KEY_VPN_TYPE, "TEXT NOT NULL DEFAULT ''", 3),
 		new DbColumn(VpnProfileDataSource.KEY_USERNAME, "TEXT", 1),
 		new DbColumn(VpnProfileDataSource.KEY_PASSWORD, "TEXT", 1),
+		new DbColumn(VpnProfileDataSource.KEY_SECRET, "TEXT", 19),
 		new DbColumn(VpnProfileDataSource.KEY_CERTIFICATE, "TEXT", 1),
 		new DbColumn(VpnProfileDataSource.KEY_USER_CERTIFICATE, "TEXT", 2),
 		new DbColumn(VpnProfileDataSource.KEY_MTU, "INTEGER", 5),
@@ -84,7 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		new DbColumn(ManagedUserCertificate.KEY_PASSWORD, "TEXT", 18),
 	});
 
-	private static final int DATABASE_VERSION = 18;
+	private static final int DATABASE_VERSION = 19;
 
 	private static final Set<DbTable> TABLES;
 

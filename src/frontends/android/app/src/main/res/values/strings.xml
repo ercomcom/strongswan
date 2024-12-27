@@ -73,6 +73,7 @@
     <string name="profile_username_label">Username</string>
     <string name="profile_password_label">Password (optional)</string>
     <string name="profile_password_hint">Leave blank to get prompted on demand</string>
+    <string name="profile_secret_label">Secret</string>
     <string name="profile_user_certificate_label">User certificate</string>
     <string name="profile_user_select_certificate_label">Select user certificate</string>
     <string name="profile_user_select_certificate">Select a specific user certificate</string>

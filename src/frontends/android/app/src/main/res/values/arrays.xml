@@ -18,6 +18,7 @@
     <!-- the order here must match the enum entries in VpnType.java -->
     <string-array name="vpn_types">
         <item>IKEv2 EAP (Username/Password)</item>
+        <item>IKEv2 PSK (Pre-Shared Key)</item>
         <item>IKEv2 Certificate</item>
         <item>IKEv2 Certificate + EAP (Username/Password)</item>
         <item>IKEv2 EAP-TLS (Certificate)</item>
@@ -26,6 +27,7 @@
 
     <string-array name="managed_config_vpn_type_values" translatable="false">
         <item>ikev2-eap</item>
+        <item>ikev2-psk</item>
         <item>ikev2-cert</item>
         <item>ikev2-cert-eap</item>
         <item>ikev2-eap-tls</item>

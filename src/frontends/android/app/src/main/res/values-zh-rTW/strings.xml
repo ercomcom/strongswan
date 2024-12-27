@@ -69,6 +69,7 @@
     <string name="profile_username_label">用戶ID</string>
     <string name="profile_password_label">密碼(選填)</string>
     <string name="profile_password_hint">可留空白在需要時才請您設定</string>
+    <string name="profile_secret_label">密鑰</string>
     <string name="profile_user_certificate_label">用戶憑證</string>
     <string name="profile_user_select_certificate_label">選擇用戶憑證</string>
     <string name="profile_user_select_certificate">選擇指定的用戶憑證</string>

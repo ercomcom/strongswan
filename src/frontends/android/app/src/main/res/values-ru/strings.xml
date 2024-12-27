@@ -69,6 +69,7 @@
     <string name="profile_username_label">Логин</string>
     <string name="profile_password_label">Пароль (необязательный)</string>
     <string name="profile_password_hint">Leave blank to get prompted on demand</string>
+    <string name="profile_secret_label">Ключ</string>
     <string name="profile_user_certificate_label">Сертификат пользователя</string>
     <string name="profile_user_select_certificate_label">Выбрать сертификат пользователя</string>
     <string name="profile_user_select_certificate">Выбрать сертификат пользователя</string>
