@@ -93,6 +93,8 @@
     <string name="managed_config_local_p12_password_description">Password required to extract the private key of the PKCS#12-container for installation</string>
     <string name="managed_config_local_rsa_pss_title">@string/profile_rsa_pss_label</string>
     <string name="managed_config_local_rsa_pss_description">@string/profile_rsa_pss_hint</string>
+    <string name="managed_config_local_psk_title">@string/profile_psk_label</string>
+    <string name="managed_config_local_psk_description">@string/profile_psk_hint</string>
 
     <!-- Managed configuration, VPN profile, split-tunneling -->
     <string name="managed_config_split_tunneling_bundle_title">@string/profile_split_tunneling_label</string>

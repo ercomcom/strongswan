@@ -204,6 +204,13 @@
                     android:restrictionType="bool"
                     android:title="@string/managed_config_local_rsa_pss_title" />
 
+                <restriction
+                    android:defaultValue=""
+                    android:description="@string/managed_config_local_psk_description"
+                    android:key="secret"
+                    android:restrictionType="string"
+                    android:title="@string/managed_config_local_psk_title" />
+
             </restriction>
 
             <restriction
