@@ -820,11 +820,13 @@ netlink_event_socket_t *netlink_event_socket_create(int protocol, uint32_t group
 
 	if (bind(this->socket, (struct sockaddr*)&addr, sizeof(addr)))
 	{
+        printf("TOTO: Bind netlink socket FAILED\n");
 		DBG1(DBG_KNL, "unable to bind netlink event socket: %s (%d)",
 			 strerror(errno), errno);
 		destroy_event(this);
 		return NULL;
 	}
+    printf("TOTO: Bind netlink socket SUCCESS\n");
 
 	lib->watcher->add(lib->watcher, this->socket, WATCHER_READ, watch_event, this);
 

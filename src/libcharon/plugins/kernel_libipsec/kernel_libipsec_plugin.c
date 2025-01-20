@@ -116,10 +116,12 @@ plugin_t *kernel_libipsec_plugin_create()
 
 	if (!lib->caps->check(lib->caps, CAP_NET_ADMIN))
 	{	/* required to create TUN devices */
+        printf("TOTOTOTO: NOT CAP_NET_ADMIN\n");
 		DBG1(DBG_KNL, "kernel-libipsec plugin requires CAP_NET_ADMIN "
 			 "capability");
 		return NULL;
 	}
+    printf("TOTOTOTO: HAS CAP_NET_ADMIN\n");
 
 	INIT(this,
 		.public = {

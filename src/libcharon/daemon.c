@@ -882,6 +882,7 @@ static bool sa_managers_cb(void *plugin, plugin_feature_t *feature,
 		this->public.ike_sa_manager = ike_sa_manager_create();
 		if (!this->public.ike_sa_manager)
 		{
+            printf("Failed to instanciate IKE SA manager\n");
 			return FALSE;
 		}
 		this->public.child_sa_manager = child_sa_manager_create();
@@ -891,6 +892,7 @@ static bool sa_managers_cb(void *plugin, plugin_feature_t *feature,
 		DESTROY_IF(this->public.ike_sa_manager);
 		DESTROY_IF(this->public.child_sa_manager);
 	}
+    printf("Return true\n");
 	return TRUE;
 }
 

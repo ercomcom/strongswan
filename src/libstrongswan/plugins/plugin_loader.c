@@ -778,6 +778,8 @@ static bool load_dependencies(private_plugin_loader_t *this,
 				DBG2(DBG_LIB, "feature %s in plugin '%s' has unmet dependency: "
 					 "%s", provide, name, depend);
 			}
+            printf("TOTO: Failed to load dependency (plugin '%s' / '%s', depend '%s', soft: %s)\n",
+                   provide, name, depend, soft?"YES":"NO");
 			free(provide);
 			free(depend);
 #endif /* !USE_FUZZING && DEBUG_LEVEL */
@@ -804,6 +806,11 @@ static void load_feature(private_plugin_loader_t *this,
 		if (plugin_feature_load(provided->entry->plugin, provided->feature,
 								provided->reg))
 		{
+            char *name, *provide;
+
+            name = provided->entry->plugin->get_name(provided->entry->plugin);
+            provide = plugin_feature_get_string(&provided->feature[0]);
+            printf("TOTO: plugin '%s' / '%s' loaded\n", provide, name);
 			provided->loaded = TRUE;
 			/* insert first so we can unload the features in reverse order */
 			this->loaded->insert_first(this->loaded, provided);
@@ -817,11 +824,13 @@ static void load_feature(private_plugin_loader_t *this,
 		provide = plugin_feature_get_string(&provided->feature[0]);
 		if (provided->entry->critical)
 		{
+            printf("TOTO: plugin '%s' / '%s' FAILED (IS CRITICAL)\n", provide, name);
 			DBG1(DBG_LIB, "feature %s in critical plugin '%s' failed to load",
 				 provide, name);
 		}
 		else
 		{
+            printf("TOTO: plugin '%s' / '%s' FAILED (NOT CRITICAL)\n", provide, name);
 			DBG2(DBG_LIB, "feature %s in plugin '%s' failed to load",
 				 provide, name);
 		}
@@ -833,7 +842,13 @@ static void load_feature(private_plugin_loader_t *this,
 		 * being loaded as dependency. If there are loops there is a chance the
 		 * feature can be loaded later when loading the feature directly. */
 		this->stats.depends++;
-	}
+
+        char *name, *provide;
+
+        name = provided->entry->plugin->get_name(provided->entry->plugin);
+        provide = plugin_feature_get_string(&provided->feature[0]);
+        printf("TOTO: plugin '%s' / '%s' FAILED due to missing dependency\n", provide, name);
+    }
 	provided->failed = TRUE;
 	this->stats.critical += provided->entry->critical ? 1 : 0;
 	this->stats.failed++;
@@ -1261,6 +1276,7 @@ METHOD(plugin_loader_t, load_plugins, bool,
 
 		token = strdup(token);
 		len = strlen(token);
+        printf("TOTO: load '%s'\n", token);
 		if (token[len-1] == '!')
 		{
 			critical = TRUE;
@@ -1268,6 +1284,7 @@ METHOD(plugin_loader_t, load_plugins, bool,
 		}
 		if (plugin_loaded(this, token))
 		{
+            printf("TOTO:   ALREADY LOADED\n");
 			free(token);
 			continue;
 		}
@@ -1280,13 +1297,16 @@ METHOD(plugin_loader_t, load_plugins, bool,
 		{
 			find_plugin(default_path, token, buf, &file);
 		}
+        printf("TOTO:   Path: '%s'\n", file);
 		entry = load_plugin(this, token, file, critical);
 		if (entry)
 		{
+            printf("TOTO:   OK\n");
 			register_features(this, entry);
 		}
 		else if (critical)
 		{
+            printf("TOTO:    Set failed A\n");
 			critical_failed = TRUE;
 			DBG1(DBG_LIB, "loading critical plugin '%s' failed", token);
 		}
@@ -1298,6 +1318,7 @@ METHOD(plugin_loader_t, load_plugins, bool,
 		load_features(this);
 		if (this->stats.critical > 0)
 		{
+            printf("TOTO: Set failed B (critical: %d)\n", this->stats.critical);
 			critical_failed = TRUE;
 			DBG1(DBG_LIB, "failed to load %d critical plugin feature%s",
 				 this->stats.critical, this->stats.critical == 1 ? "" : "s");
@@ -1314,6 +1335,7 @@ METHOD(plugin_loader_t, load_plugins, bool,
 	{
 		free(plugins);
 	}
+    printf("TOTO: plugin loader result: %s\n", critical_failed?"FAILED":"SUCCESS");
 	return !critical_failed;
 }
 

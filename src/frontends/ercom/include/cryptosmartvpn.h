@@ -5,6 +5,11 @@
 #ifndef STRONGSWAN_CRYPTOSMARTVPN_H
 #define STRONGSWAN_CRYPTOSMARTVPN_H
 
-void test();
+
+typedef struct cryptosmart_vpn_t cryptosmart_vpn_t;
+
+cryptosmart_vpn_t* create_csmart_vpn();
+
+void configure_logs();
 
 #endif //STRONGSWAN_CRYPTOSMARTVPN_H

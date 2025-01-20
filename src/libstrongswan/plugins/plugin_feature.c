@@ -475,11 +475,19 @@ bool plugin_feature_load(plugin_t *plugin, plugin_feature_t *feature,
 	}
 	if (reg->kind == FEATURE_CALLBACK)
 	{
-		if (!reg->arg.cb.f ||
-			 reg->arg.cb.f(plugin, feature, TRUE, reg->arg.cb.data))
+        //printf("Check if it is null\n");
+        if (!reg->arg.cb.f) {
+            return TRUE;
+        }
+        //printf("Try call\n");
+        bool res = reg->arg.cb.f(plugin, feature, TRUE, reg->arg.cb.data);
+        //printf("Call result: %s\n", res?"true":"false");
+		if (res)
 		{
 			return TRUE;
 		}
+        printf("TOTO: Plugin load failed: failed to register callback (f is null:%s)\n",
+               reg->arg.cb.f?"NO":"YES");
 		return FALSE;
 	}
 	name = plugin->get_name(plugin);
