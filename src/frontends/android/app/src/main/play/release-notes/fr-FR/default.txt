@@ -1,0 +1,13 @@
+# 2.5.2 #
+
+- SDK cible augmenté à Android 14
+- En raison d'un bug dans Android 14, une nouvelle autorisation est nécessaire pour démarrer un profil en arrière-plan à partir de la tuile d'état
+- Correction d'un crash lors de la liste des applications installées pour les nouveaux profils
+
+# 2.5.1 #
+
+- Correction pour les raccourcis existants et l'automatisation via les Intents
+
+# 2.5.0 #
+
+- Prise en charge des configurations gérées via la gestion de la mobilité d'entreprise (EMM)

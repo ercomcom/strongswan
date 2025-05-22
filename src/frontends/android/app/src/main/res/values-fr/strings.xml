@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2012-2020 Tobias Brunner
+    Copyright (C) 2012 Giuliano Grassi
+    Copyright (C) 2012 Ralf Sager
+
+    Copyright (C) secunet Security Networks AG
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation; either version 2 of the License, or (at your
+    option) any later version.  See <http://www.fsf.org/copyleft/gpl.txt>.
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+    for more details.
+-->
+<resources>
+
+    <!-- Application -->
+    <string name="app_name">Client VPN strongSwan</string>
+    <string name="main_activity_name">strongSwan</string>
+    <string name="show_log">Afficher le journal</string>
+    <string name="search">Rechercher</string>
+    <string name="vpn_not_supported_title">VPN non supporté</string>
+    <string name="vpn_not_supported">Votre appareil ne prend pas en charge les applications VPN.\nVeuillez contacter le fabricant.</string>
+    <string name="vpn_not_supported_during_lockdown">Les connexions VPN ne sont pas prises en charge si une fonctionnalité VPN intégrée est activée en permanence.</string>
+    <string name="vpn_not_supported_no_permission">Impossible d\'obtenir l\'autorisation de créer des connexions VPN. Soit parce qu\'elle a été refusée par l\'utilisateur, soit parce qu\'une autre application VPN a la fonction "toujours activé" activée.</string>
+    <string name="loading">Chargement&#8230;</string>
+    <string name="profile_not_found">Profil non trouvé</string>
+    <string name="strongswan_shortcut">Raccourci strongSwan</string>
+    <string name="permanent_notification_name">État de la connexion VPN</string>
+    <string name="permanent_notification_description">Fournit des informations sur l\'état de la connexion VPN et sert de notification permanente pour maintenir le service VPN en cours d\'exécution en arrière-plan.</string>
+
+    <!-- Settings -->
+    <string name="pref_title">Paramètres</string>
+    <string name="pref_default_vpn_profile">Profil VPN par défaut</string>
+    <string name="pref_default_vpn_profile_mru">Se connecter au profil le plus récemment utilisé</string>
+    <string name="pref_power_whitelist_title">Ignorer les optimisations de la batterie</string>
+    <string name="pref_power_whitelist_summary">Ne pas afficher d\'avertissement si l\'application n\'est pas sur la liste blanche d\'alimentation de l\'appareil</string>
+
+    <!-- Log view -->
+    <string name="log_title">Journal</string>
+    <string name="send_log">Envoyer le fichier journal</string>
+    <string name="empty_log">Le fichier journal est vide</string>
+    <string name="log_mail_subject">Fichier journal strongSwan %1$s</string>
+
+    <!-- VPN profile list -->
+    <string name="no_profiles">Aucun profil VPN.</string>
+    <string name="add_profile">Ajouter un profil VPN</string>
+    <string name="edit_profile">Modifier</string>
+    <string name="copy_profile">Copier</string>
+    <string name="copied_name">%1$s (Copie)</string>
+    <string name="delete_profile">Supprimer</string>
+    <string name="select_profiles">Sélectionner les profils</string>
+    <string name="profiles_deleted">Profils sélectionnés supprimés</string>
+    <string name="no_profile_selected">Aucun profil sélectionné</string>
+    <string name="one_profile_selected">Un profil sélectionné</string>
+    <string name="x_profiles_selected">%1$d profils sélectionnés</string>
+
+    <!-- VPN profile details -->
+    <string name="profile_edit_save">Enregistrer</string>
+    <string name="profile_edit_import">Importer</string>
+    <string name="profile_edit_cancel">Annuler</string>
+    <string name="profile_name_label">Nom du profil (facultatif)</string>
+    <string name="profile_name_label_simple">Nom du profil</string>
+    <string name="profile_name_hint">Par défaut, le serveur configuré</string>
+    <string name="profile_name_hint_gateway">Par défaut à \"%1$s\"</string>
+    <string name="profile_gateway_label">Serveur</string>
+    <string name="profile_gateway_hint">Adresse IP ou nom d\'hôte du serveur VPN</string>
+    <string name="profile_vpn_type_label">Type de VPN</string>
+    <string name="profile_username_label">Nom d\'utilisateur</string>
+    <string name="profile_password_label">Mot de passe (facultatif)</string>
+    <string name="profile_password_hint">Laisser vide pour être invité à la demande</string>
+    <string name="profile_secret_label">Secret</string>
+    <string name="profile_user_certificate_label">Certificat utilisateur</string>
+    <string name="profile_user_select_certificate_label">Sélectionner le certificat utilisateur</string>
+    <string name="profile_user_select_certificate">Sélectionner un certificat utilisateur spécifique</string>
+    <string name="profile_user_certificate_install">Installer le certificat utilisateur</string>
+    <string name="profile_ca_label">Certificat CA</string>
+    <string name="profile_ca_auto_label">Sélectionner automatiquement</string>
+    <string name="profile_ca_select_certificate_label">Sélectionner le certificat CA</string>
+    <string name="profile_ca_select_certificate">Sélectionner un certificat CA spécifique</string>
+    <string name="profile_advanced_label">Paramètres avancés</string>
+    <string name="profile_show_advanced_label">Afficher les paramètres avancés</string>
+    <string name="profile_remote_id_label">Identité du serveur</string>
+    <string name="profile_remote_id_hint">Par défaut, le serveur configuré. Les valeurs personnalisées sont explicitement envoyées au serveur et appliquées lors de l\'authentification</string>
+    <string name="profile_remote_id_hint_gateway">Par défaut à \"%1$s\". Les valeurs personnalisées sont explicitement envoyées au serveur et appliquées lors de l\'authentification</string>
+    <string name="profile_local_id_label">Identité du client</string>
+    <string name="profile_local_id_hint_user">Par défaut, le nom d\'utilisateur configuré. Des valeurs personnalisées могут être utilisées si elles sont attendues/requises par le serveur</string>
+    <string name="profile_local_id_hint_cert">Par défaut, l\'identité du sujet du certificat. Des valeurs personnalisées peuvent être utilisées si elles sont attendues/requises par le serveur. Notez que celles-ci doivent généralement être confirmées par le certificat (la saisie semi-automatique est fournie pour les identités alternatives du certificat, le cas échéant)</string>
+    <string name="profile_dns_servers_label">Serveurs DNS</string>
+    <string name="profile_dns_servers_hint">Serveurs DNS personnalisés à utiliser lorsque vous êtes connecté au VPN (séparés par des espaces, par exemple \"8.8.8.8 2001:4860:4860::8888\"), par défaut ceux reçus du serveur VPN</string>
+    <string name="profile_mtu_label">MTU du périphérique tunnel VPN</string>
+    <string name="profile_mtu_hint">Au cas où la valeur par défaut ne conviendrait pas à un réseau particulier</string>
+    <string name="profile_port_label">Port du serveur</string>
+    <string name="profile_port_hint">Port UDP auquel se connecter, s\'il est différent de celui par défaut</string>
+    <string name="profile_nat_keepalive_label">Intervalle de maintien en vie NAT-T</string>
+    <string name="profile_nat_keepalive_hint">De petits paquets sont envoyés pour maintenir actives les mappages sur les routeurs NAT en l\'absence d\'autre trafic. Afin d\'économiser de l\'énergie, l\'intervalle par défaut est de 45 secondes. Derrière les routeurs NAT qui suppriment les mappages tôt, cela peut être trop élevé, essayez 20 secondes ou moins dans ce cas.</string>
+    <string name="profile_cert_req_label">Envoyer les demandes de certificat</string>
+    <string name="profile_cert_req_hint">Les demandes de certificat sont envoyées pour tous les certificats CA disponibles ou sélectionnés. Pour réduire la taille du message IKE_AUTH, cela peut être désactivé. Cependant, cela ne fonctionne que si le serveur envoie son certificat même s\'il n\'a reçu aucune demande de certificat.</string>
+    <string name="profile_use_ocsp_label">Utiliser OCSP pour vérifier le certificat</string>
+    <string name="profile_use_ocsp_hint">Utiliser le protocole OCSP (Online Certificate Status Protocol), si disponible, pour vérifier que le certificat du serveur n\'a pas été révoqué.</string>
+    <string name="profile_use_crl_label">Utiliser les CRL pour vérifier le certificat</string>
+    <string name="profile_use_crl_hint">Utiliser les listes de révocation de certificats (CRL), si disponibles, pour vérifier que le certificat du serveur n\'a pas été révoqué. Les CRL ne sont utilisées que si OCSP ne donne aucun résultat.</string>
+    <string name="profile_strict_revocation_label">Utiliser une vérification de révocation stricte</string>
+    <string name="profile_strict_revocation_hint">En mode strict, l\'authentification échouera non seulement si le certificat du serveur a été révoqué, mais aussi si son statut est inconnu (par exemple, parce qu\'OCSP a échoué et qu\'aucune CRL valide n\'était disponible).</string>
+    <string name="profile_rsa_pss_label">Utiliser les signatures RSA/PSS</string>
+    <string name="profile_rsa_pss_hint">Utiliser le codage PSS plus fort au lieu du codage PKCS#1 classique pour les signatures RSA. L\'authentification échouera si le serveur ne prend pas en charge de telles signatures.</string>
+    <string name="profile_psk_label">Utiliser le secret de la clé pré-partagée pour s\'authentifier</string>
+    <string name="profile_psk_hint">Secret</string>
+    <string name="profile_ipv6_transport_label">Utiliser les adresses de transport IPv6</string>
+    <string name="profile_ipv6_transport_hint">Utiliser IPv6 pour les adresses de transport externes si disponibles. Ne peut être activé que si l\'encapsulation UDP pour IPv6 est prise en charge par le serveur. Notez que le noyau Linux ne le prend en charge que depuis la version 5.8, de sorte que de nombreux serveurs ne le prendront pas encore en charge.</string>
+    <string name="profile_split_tunneling_label">Split tunneling</string>
+    <string name="profile_split_tunneling_intro">Par défaut, le client acheminera tout le trafic réseau via le VPN, à moins que le serveur ne réduise les sous-réseaux lors de l\'établissement de la connexion, auquel cas seul le trafic autorisé par le serveur sera acheminé via le VPN (par défaut, tout autre trafic est acheminé comme s\'il n\'y avait pas de VPN).</string>
+    <string name="profile_split_tunnelingv4_title">Bloquer le trafic IPv4 non destiné au VPN</string>
+    <string name="profile_split_tunnelingv6_title">Bloquer le trafic IPv6 non destiné au VPN</string>
+    <string name="profile_included_subnets_label">Sous-réseaux personnalisés</string>
+    <string name="profile_included_subnets_hint">N\'acheminer que le trafic vers des sous-réseaux spécifiques via le VPN, tout le reste est acheminé comme s\'il n\'y avait pas de VPN (séparés par des espaces, par exemple \"192.168.1.0/24 2001:db8::/64\")</string>
+    <string name="profile_excluded_subnets_label">Sous-réseaux exclus</string>
+    <string name="profile_excluded_subnets_hint">Le trafic vers ces sous-réseaux ne sera pas acheminé via le VPN, mais comme s\'il n\'y avait pas de VPN (séparés par des espaces, par exemple \"192.168.1.0/24 2001:db8::/64\")</string>
+    <string name="profile_select_apps_label">Applications</string>
+    <string name="profile_select_apps">Sélectionner les applications</string>
+    <string name="profile_select_no_apps">Aucune application sélectionnée</string>
+    <string name="profile_select_one_app">Une application sélectionnée</string>
+    <string name="profile_select_x_apps">%1$d applications sélectionnées</string>
+    <string name="profile_proposals_label">Algorithmes</string>
+    <string name="profile_proposals_intro">Configurez éventuellement des algorithmes spécifiques à utiliser pour IKEv2 et/ou IPsec/ESP au lieu de ceux par défaut. Consultez notre wiki pour une <a href="https://docs.strongswan.org/docs/5.9/config/IKEv2CipherSuites.html">liste des identifiants d\'algorithmes</a> (notez que tous ne sont pas pris en charge par cette application). Les deux champs acceptent une liste d\'algorithmes, chacun séparé par un trait d\'union.</string>
+    <string name="profile_proposals_ike_label">Algorithmes IKEv2</string>
+    <string name="profile_proposals_ike_hint">Pour les algorithmes de chiffrement non AEAD/classiques, un algorithme d\'intégrité, une fonction pseudo-aléatoire (facultatif, par défaut basée sur l\'algorithme d\'intégrité) et un groupe Diffie-Hellman sont requis (par exemple, aes256-sha256-ecp256). Pour les algorithmes en mode combiné/AEAD, l\'algorithme d\'intégrité est omis mais une PRF est requise (par exemple, aes256gcm16-prfsha256-ecp256).</string>
+    <string name="profile_proposals_esp_label">Algorithmes IPsec/ESP</string>
+    <string name="profile_proposals_esp_hint">Pour les algorithmes de chiffrement non AEAD/classiques, un algorithme d\'intégrité est requis, un groupe Diffie-Hellman est facultatif (par exemple, aes256-sha256 ou aes256-sha256-ecp256). Pour les algorithmes en mode combiné/AEAD, l\'algorithme d\'intégrité est omis (par exemple, aes256gcm16 ou aes256gcm16-ecp256). Si un groupe DH est spécifié, le renouvellement de clé SA IPsec utilisera un échange de clés DH. Cependant, les groupes DH spécifiés ici ne sont pas utilisés lors de l\'établissement initial de la connexion car les clés y sont dérivées du matériel de clé SA IKE. Par conséquent, toute incompatibilité de configuration avec le serveur ne provoquera des erreurs que plus tard lors du renouvellement de clé.</string>
+    <string name="profile_import">Importer le profil VPN</string>
+    <string name="profile_import_failed">Échec de l\'importation du profil VPN</string>
+    <string name="profile_import_failed_detail">Échec de l\'importation du profil VPN : %1$s</string>
+    <string name="profile_import_failed_not_found">Fichier non trouvé</string>
+    <string name="profile_import_failed_host">Hôte inconnu</string>
+    <string name="profile_import_failed_tls">Échec de la poignée de main TLS</string>
+    <string name="profile_import_failed_value">Valeur non valide dans \"%1$s\"</string>
+    <string name="profile_import_exists">Ce profil VPN existe déjà, ses paramètres actuels seront remplacés.</string>
+    <string name="profile_cert_import">Importer le certificat depuis le profil VPN</string>
+    <string name="profile_cert_alias">Certificat pour \"%1$s\"</string>
+    <string name="profile_profile_id">ID du profil</string>
+    <string name="profile_managed">Profil géré</string>
+    <!-- Warnings/Notifications in the details view -->
+    <string name="alert_text_no_input_gateway">Une valeur est requise pour initier la connexion</string>
+    <string name="alert_text_no_input_username">Veuillez entrer votre nom d\'utilisateur </string>
+    <string name="alert_text_nocertfound_title">Aucun certificat CA sélectionné</string>
+    <string name="alert_text_nocertfound">Veuillez en sélectionner un ou activer <i>Sélectionner automatiquement</i></string>
+    <string name="alert_text_out_of_range">Veuillez entrer un nombre compris entre %1$d et %2$d</string>
+    <string name="alert_text_no_subnets">Veuillez entrer des sous-réseaux et/ou des adresses IP valides, séparés par des espaces</string>
+    <string name="alert_text_no_ips">Veuillez entrer des adresses IP valides, séparées par des espaces</string>
+    <string name="alert_text_no_proposal">Veuillez entrer une liste valide d\'algorithmes, séparés par des traits d\'union</string>
+    <string name="alert_text_vpn_profile_read_only">Ce profil VPN est géré par votre administrateur et ne peut pas être modifié. Vous ne pouvez modifier que le mot de passe</string>
+    <string name="tnc_notice_title">EAP-TNC peut affecter votre vie privée</string>
+    <string name="tnc_notice_subtitle">Les données de l\'appareil sont envoyées à l\'opérateur du serveur</string>
+    <string name="tnc_notice_details"><![CDATA[<p>Trusted Network Connect (TNC) permet aux opérateurs de serveurs d\'évaluer l\'état de santé d\'un appareil client.</p><p>À cette fin, l\'opérateur du serveur peut demander des données telles qu\'un identifiant unique, une liste des packages installés, les paramètres système ou les sommes de contrôle cryptographiques des fichiers.</p><b>Toutes les données ne seront envoyées qu\'après vérification de l\'identité du serveur.</b>]]></string>
+
+    <!-- Trusted certificate selection -->
+    <string name="trusted_certs_title">Certificats CA</string>
+    <string name="no_certificates">Aucun certificat</string>
+    <string name="reload_trusted_certs">Recharger les certificats CA</string>
+    <string name="system_tab">Système</string>
+    <string name="user_tab">Utilisateur</string>
+    <string name="local_tab">Importé</string>
+    <string name="delete_certificate_question">Supprimer le certificat ?</string>
+    <string name="delete_certificate">Le certificat sera définitivement supprimé !</string>
+    <string name="import_certificate">Importer le certificat</string>
+    <string name="cert_imported_successfully">Certificat importé avec succès</string>
+    <string name="cert_import_failed">Échec de l\'importation du certificat</string>
+    <string name="crl_cache">Cache CRL</string>
+    <string name="clear_crl_cache_title">Vider le cache CRL ?</string>
+    <string name="clear_crl_cache_msg_none">Le cache CRL est vide</string>
+    <plurals name="clear_crl_cache_msg">
+        <item quantity="one">Le cache CRL contient %1$d fichier (%2$s).</item>
+        <item quantity="other">Le cache CRL contient %1$d fichiers (%2$s).</item>
+    </plurals>
+    <string name="clear">Vider</string>
+
+    <!-- VPN state fragment -->
+    <string name="state_label">Statut :</string>
+    <string name="profile_label">Profil :</string>
+    <string name="disconnect">Déconnecter</string>
+    <string name="state_connecting">Connexion en cours&#8230;</string>
+    <string name="state_connected">Connecté</string>
+    <string name="state_disconnecting">Déconnexion en cours&#8230;</string>
+    <string name="state_disabled">Aucun VPN actif</string>
+    <string name="state_error">Erreur</string>
+    <string name="dismiss">Rejeter</string>
+
+    <!-- IMC state fragment -->
+    <string name="imc_state_label">Évaluation :</string>
+    <string name="imc_state_isolate">Restreint</string>
+    <string name="imc_state_block">Échec</string>
+    <string name="show_remediation_instructions">Afficher les instructions de remédiation</string>
+
+    <!-- Remediation instructions -->
+    <string name="remediation_instructions_title">Instructions de remédiation</string>
+
+    <!-- Dialogs -->
+    <string name="login_title">Entrez le mot de passe pour vous connecter</string>
+    <string name="login_username">Nom d\'utilisateur</string>
+    <string name="login_password">Mot de passe</string>
+    <string name="login_confirm">Connecter</string>
+    <string name="error_format">Échec de l\'établissement de la connexion VPN : %1$s.</string>
+    <string name="error_lookup_failed">Échec de la recherche de l\'adresse du serveur</string>
+    <string name="error_unreachable">Le serveur est inaccessible</string>
+    <string name="error_peer_auth_failed">Échec de la vérification de l\'authentification du serveur</string>
+    <string name="error_auth_failed">Échec de l\'authentification de l\'utilisateur</string>
+    <string name="error_assessment_failed">Échec de l\'évaluation de la sécurité</string>
+    <string name="error_generic">Échec non spécifié lors de la connexion</string>
+    <string name="error_password_missing">Mot de passe indisponible</string>
+    <string name="error_certificate_unavailable">Certificat client indisponible</string>
+    <string name="vpn_connected">VPN connecté</string>
+    <string name="vpn_profile_connected">Ce profil VPN est actuellement connecté !</string>
+    <string name="reconnect">Reconnecter</string>
+    <string name="connect_profile_question">Connecter %1$s ?</string>
+    <string name="replaces_active_connection">Cela remplacera votre connexion VPN active !</string>
+    <string name="disconnect_question">Déconnecter le VPN ?</string>
+    <string name="disconnect_active_connection">Cela déconnectera la connexion VPN active !</string>
+    <string name="connect">Connecter</string>
+    <string name="retry">Réessayer</string>
+    <plurals name="retry_in">
+        <item quantity="one">Réessayer dans %1$d seconde</item>
+        <item quantity="other">Réessayer dans %1$d secondes</item>
+    </plurals>
+    <string name="cancel_retry">Annuler la nouvelle tentative</string>
+    <string name="power_whitelist_title">Désactiver les optimisations de la batterie</string>
+    <string name="power_whitelist_text">Veuillez confirmer la boîte de dialogue suivante pour ajouter l\'application à la liste blanche d\'alimentation de l\'appareil afin qu\'elle puisse ignorer les optimisations de la batterie et planifier avec précision les maintiens en vie NAT et les renouvellements de clé afin de rester constamment joignable lorsque le VPN est établi.</string>
+
+    <!-- Quick Settings tile -->
+    <string name="tile_default">Activer/Désactiver le VPN</string>
+    <string name="tile_connect">Connecter le VPN</string>
+    <string name="tile_disconnect">Déconnecter le VPN</string>
+
+</resources>
