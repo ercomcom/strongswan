@@ -1,8 +1,22 @@
-*Dernier commit pris en compte : 60f4c8678*
+*Dernier commit pris en compte : b4ba8a6fb*
+
+# Semaine du 20/04/2026 au 26/04/2026
+## Publication de la version 6.0.6
+La version 6.0.6 a été publiée avec le gestionnaire de réseau (nm) mis à jour en version 1.6.5.
+Une correction a également été apportée dans le plugin OpenSSL pour corriger une fuite de mémoire lorsque `ipAddrBlock` n'est pas canonique. Les intégrations continues (CI) ont continué leur migration de Cirrus CI et AppVeyor vers GitHub Actions pour Windows, Alpine et FreeBSD.
 
 # Semaine du 13/04/2026 au 19/04/2026
 ## Amélioration de la traçabilité
 Il est dorénavant possible de tracer beaucoup plus facilement les connexions IKE grâce à l'ajout d'identifiants uniques dans les journaux système lors de l'ouverture et la fermeture des sessions.
+## Sécurité : Multiples correctifs (CVE-2026-35328 à CVE-2026-35334)
+Plusieurs vulnérabilités ont été corrigées et annoncées pour la version 6.0.6 :
+- **CVE-2026-35328** : Correction d'une vulnérabilité dans `libtls` liée au traitement de l'extension `supported_versions` dans TLS, qui pouvait entraîner une boucle infinie.
+- **CVE-2026-35329** : Correction d'une vulnérabilité dans `libstrongswan` et le plugin `pkcs7` liée au traitement de conteneurs PKCS#7 chiffrés, qui pouvait entraîner un plantage.
+- **CVE-2026-35330** : Correction d'une vulnérabilité dans `libsimaka` liée au traitement de certains attributs EAP-SIM/AKA, qui pouvait entraîner une boucle infinie ou un dépassement de tampon basé sur le tas (heap-based buffer overflow), et potentiellement une exécution de code à distance.
+- **CVE-2026-35331** : Correction d'une vulnérabilité dans le plugin `constraints` liée au traitement des contraintes de nom X.509, qui pouvait autoriser l'authentification avec des certificats violant ces contraintes. La correction entraîne désormais le rejet de tous les certificats contenant des contraintes de nom exclues de type `directoryName` (DN).
+- **CVE-2026-35332** : Correction d'une vulnérabilité dans `libtls` liée au traitement des valeurs publiques ECDH dans TLS < 1.3, qui pouvait entraîner un plantage.
+- **CVE-2026-35333** : Correction d'une vulnérabilité dans `libradius` liée au traitement des attributs RADIUS, qui pouvait entraîner une boucle infinie ou une lecture hors limites risquant de provoquer un plantage.
+- **CVE-2026-35334** : Correction d'une vulnérabilité dans le plugin `gmp` liée au déchiffrement RSA, qui pouvait entraîner un plantage.
 
 # Semaine du 06/04/2026 au 12/04/2026
 ## Générateur de nombres aléatoires

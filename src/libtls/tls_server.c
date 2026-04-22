@@ -470,15 +470,12 @@ static status_t process_client_hello(private_tls_server_t *this,
 		bio_reader_t *client_versions;
 
 		client_versions = bio_reader_create(versions);
-		while (client_versions->remaining(client_versions))
+		while (client_versions->read_uint16(client_versions, &version))
 		{
-			if (client_versions->read_uint16(client_versions, &version))
+			if (this->tls->set_version(this->tls, version, version))
 			{
-				if (this->tls->set_version(this->tls, version, version))
-				{
-					this->client_version = version;
-					break;
-				}
+				this->client_version = version;
+				break;
 			}
 		}
 		client_versions->destroy(client_versions);
@@ -862,7 +859,7 @@ static status_t process_key_exchange_dhe(private_tls_server_t *this,
 	group = this->dh->get_method(this->dh);
 	ec = key_exchange_is_ecdh(group);
 	if ((ec && !reader->read_data8(reader, &pub)) ||
-		(!ec && (!reader->read_data16(reader, &pub) || pub.len == 0)))
+		(!ec && !reader->read_data16(reader, &pub)) || pub.len == 0)
 	{
 		DBG1(DBG_TLS, "received invalid Client Key Exchange");
 		this->alert->add(this->alert, TLS_FATAL, TLS_DECODE_ERROR);
