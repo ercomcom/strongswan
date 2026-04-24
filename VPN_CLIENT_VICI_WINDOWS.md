@@ -24,6 +24,18 @@ Il est tout à fait possible de configurer Strongswan pour utiliser d'autres moy
 
 ---
 
+### 1.2 Restreindre l'accès à VICI
+
+Une préoccupation courante est la sécurité de l'interface VICI elle-même : est-il possible d'interdire certaines commandes VICI (par exemple, pour empêcher la suppression de configurations, ou interdire `terminate`) ?
+
+En soi, **VICI n'implémente pas de modèle d'autorisation granulaire par commande** ou de filtrage natif (ACL) intégré à son protocole. Toute application capable d'ouvrir la socket TCP VICI et d'envoyer des requêtes valides a les pleins pouvoirs d'administration sur le daemon (elle peut charger, décharger, initier, terminer, etc.).
+
+Pour restreindre ce qui est exposé :
+1. **Protection du Transport** : La première ligne de défense est de restreindre l'accès à la socket de communication. Sous Windows, on peut utiliser des *Named Pipes* (qui gèrent des ACL système Windows pour limiter l'accès à certains utilisateurs ou processus) au lieu d'une socket TCP locale, si on souhaite s'assurer que seules les applications privilégiées peuvent envoyer des commandes.
+2. **Code Intermédiaire** : S'il est nécessaire d'offrir une API restreinte (par exemple, une IHM qui a *seulement* le droit de lire l'état), l'architecture recommandée consiste à ne **pas** exposer directement VICI à l'IHM non privilégiée. Au lieu de cela, votre "code propre" qui tourne en processus administrateur agit comme un proxy sécurisé : il offre sa propre API (restreinte) à l'IHM, et utilise lui-même VICI en interne pour parler à Strongswan.
+
+---
+
 ## 2. Configuration et démarrage du VPN via VICI
 
 L'une des forces de VICI est qu'il permet de faire **bien plus** que la simple consultation d'état. L'IHM n'a pas besoin de manipuler des fichiers de configuration texte (comme `ipsec.conf` ou `swanctl.conf`). Tout peut être poussé en temps réel en mémoire via VICI.
@@ -33,7 +45,13 @@ Voici la cinématique typique des messages VICI qu'une IHM devra échanger avec 
 ### 2.1 Pousser les accréditations
 Avant de définir les connexions, il faut fournir les certificats, clés privées ou secrets partagés (PSK).
 - **`load-shared`** : Permet à l'IHM d'envoyer un secret partagé (IKE PSK, EAP secret).
-- **`load-cert`** / **`load-key`** : Permet de charger des certificats X.509 et des clés privées.
+- **`load-cert`** / **`load-key`** : Permet de charger des certificats X.509 et des clés privées brutes en mémoire.
+- **Sécurisation des clés privées et Magasin Windows (Certificate Store)** :
+  Envoyer une clé privée brute via la commande `load-key` implique que l'IHM doit l'avoir en mémoire. Pour des raisons de sécurité, cela est souvent indésirable. Strongswan gère les "Smartcards" (PKCS#11) et les trousseaux systèmes.
+  Pour le magasin Windows, si vous utilisez des plugins natifs ou personnalisés, la clé privée n'a *jamais* besoin d'être exportée vers Strongswan. Dans ce cas :
+  1. Le certificat public (sans sa clé privée) peut être poussé via `load-cert`.
+  2. Vous n'envoyez **pas** de `load-key`.
+  3. Au lieu de cela, on peut utiliser la commande **`load-token`** de VICI (historiquement conçue pour le PKCS#11) en adaptant son usage, ou mieux, lors de la déclaration de la connexion (`load-conn`), préciser que l'authentification se fait via une référence au magasin (ex: en indiquant des paramètres spécifiques d'authentification pris en charge par le plugin d'authentification Windows). Strongswan cherchera alors le certificat dans le magasin local et utilisera l'API Windows (CAPI/CNG) pour signer les payloads IKE, sans jamais manipuler directement la clé privée.
 - *(Il existe aussi `clear-creds` pour tout purger lors d'une déconnexion).*
 
 ### 2.2 Pousser la configuration IKE/IPsec
@@ -56,15 +74,26 @@ Pour que l'IHM puisse afficher si le VPN est "Connecté", "En cours..." ou "Éch
 
 ## 3. Extension de VICI pour les "Codes Propres"
 
-Vous souhaitez également pouvoir utiliser VICI pour envoyer et recevoir des messages destinés à votre propre logique métier qui tournera au-dessus de Strongswan, tout en partageant le même processus.
+Vous souhaitez également pouvoir utiliser VICI pour envoyer et recevoir des messages destinés à votre propre logique métier qui tournera au-dessus de Strongswan.
 
 **C'est tout à fait possible et prévu par l'architecture de VICI.**
 
 Le cœur du système VICI s'articule autour d'un objet nommé `vici_dispatcher_t`. Ce dispatcher gère la socket réseau, parse les requêtes entrantes, puis fait appel à des *callbacks* enregistrés pour chaque nom de commande.
 
-Tous les modules standards de Strongswan (ex: `vici_control.c` pour `initiate`, `vici_config.c` pour `load-conn`) enregistrent leurs propres commandes de cette manière. Vous pouvez faire exactement la même chose pour vos plugins !
+### 3.1 Architecture avec un Code Métier "Externe" (Non-Plugin)
 
-### 3.1 Comment enregistrer des commandes personnalisées ?
+Il est important de noter que votre "code propre" n'a pas nécessairement besoin d'être compilé comme un plugin Strongswan interne.
+
+Si votre processus englobe Strongswan (vous chargez `libcharon` en tant que librairie dynamique dans votre programme C/C++ personnalisé sous Windows), **votre application complète partage l'espace mémoire de Strongswan**.
+Cela signifie que, depuis le code de votre exécutable (au-dessus de Strongswan) :
+1. Vous avez accès à l'instance de la librairie (via les objets globaux ou retournés lors de l'initialisation).
+2. Vous pouvez récupérer le pointeur vers le plugin VICI chargé et, par extension, obtenir un pointeur vers son `vici_dispatcher_t`.
+
+Ainsi, tout code au sein de votre processus (même en dehors du dossier `plugins` de Strongswan) peut joindre et interagir avec l'API VICI.
+
+### 3.2 Comment enregistrer des commandes personnalisées ?
+
+Que votre code soit un plugin ou simplement le programme englobant, il peut faire appel à l'API du dispatcher (`vici_dispatcher.h`) :
 
 Puisque vos codes "propres" seront développés sous forme de plugins C/C++ chargés par Strongswan (ou initialisés en même temps que la librairie `libcharon`), vous aurez accès au pointeur du dispatcher VICI.
 
@@ -80,7 +109,7 @@ void (*manage_command)(vici_dispatcher_t *this, char *name, vici_command_cb_t cb
 4. Le flux VICI l'interceptera et appellera directement `ma_fonction_callback(void *user, char *name, u_int id, vici_message_t *request)`.
 5. Votre code lira les attributs du message et renverra un message de réponse (`vici_message_t*`) que VICI acheminera vers l'IHM.
 
-### 3.2 Envoyer des événements personnalisés
+### 3.3 Envoyer des événements personnalisés
 
 Le système d'événements peut lui aussi être étendu de la même manière :
 ```c
